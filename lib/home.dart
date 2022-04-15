@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:get/get.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -21,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
+        height: Get.height/12,
         activeColor: Colors.white,
         inactiveColor: Colors.red,
         backgroundColor: Colors.black,
