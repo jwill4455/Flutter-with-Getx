@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutterwithgetx/models/record.dart';
+import 'package:flutterwithgetx/viewmodels/controller.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class RecordListTile extends StatelessWidget {
   final Record record;
-  const RecordListTile({Key? key, required this.record}) : super(key: key);
+
+  RecordListTile({Key? key, required this.record}) : super(key: key);
+  final Controller _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +27,32 @@ class RecordListTile extends StatelessWidget {
 
   Row _buildIcons() {
     return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            IconButton(
-                onPressed: null,
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.grey,
-                )),
-            IconButton(
-                onPressed: null,
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                )),
-          ],
-        );
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const IconButton(
+            onPressed: null,
+            icon: Icon(
+              Icons.edit,
+              color: Colors.grey,
+            )),
+        IconButton(
+            onPressed: () {
+              _controller.deleteRecord(record);
+            },
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.red,
+            )),
+      ],
+    );
   }
 
   Center _buildWeight() {
     return Center(
-            child: Text('${record.weight}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ));
+        child: Text(
+      '${record.weight}',
+      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    ));
   }
 
   Text _buildDate() => Text(DateFormat('EEE, MMM, d').format(record.dateTime));
