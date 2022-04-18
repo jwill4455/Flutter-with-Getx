@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:flutterwithgetx/graph.dart';
+import 'package:flutterwithgetx/views/graph.dart';
+import 'package:flutterwithgetx/views/history.dart';
 import 'package:get/get.dart';
-
-import 'history.dart';
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
