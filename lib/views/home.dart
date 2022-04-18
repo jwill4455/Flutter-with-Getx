@@ -4,6 +4,8 @@ import 'package:flutterwithgetx/views/graph.dart';
 import 'package:flutterwithgetx/views/history.dart';
 import 'package:get/get.dart';
 
+import 'add_record.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -17,16 +19,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: _currentScreen,
-      floatingActionButton: const FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
-        onPressed: null,
-        child: Icon(Icons.add),
+        onPressed: () {
+          Get.to(()=> const AddRecordView());
+        },
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
-        height: Get.height/12,
+        height: Get.height / 12,
         activeColor: Colors.white,
         inactiveColor: Colors.grey,
         backgroundColor: Colors.black,
@@ -36,11 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
         iconSize: 30,
         leftCornerRadius: 32,
         rightCornerRadius: 32,
-        activeIndex: _currentTab, onTap: (int a){
-             setState(() {
-               _currentTab = a;
-               _currentScreen = (a == 0)?const GraphScreen():const HistoryScreen();
-             });
+        activeIndex: _currentTab,
+        onTap: (int a) {
+          setState(() {
+            _currentTab = a;
+            _currentScreen =
+                (a == 0) ? const GraphScreen() : const HistoryScreen();
+          });
         },
       ),
     );
