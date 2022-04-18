@@ -9,4 +9,8 @@ class Controller extends GetxController {
   void addRecord() {
      records.add(Record(dateTime: DateTime.now(), weight: 80, note: 'XXX'));
   }
+
+  void deleteRecord(Record record) {
+    records.remove(record);
+  }
 }
