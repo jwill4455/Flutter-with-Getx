@@ -8,7 +8,9 @@ class RecordListTile extends StatelessWidget {
     return ListTile(
       leading: Text(DateTime.now().toIso8601String()),
       title: const Text('75'),
-      trailing: Row(children: const [
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
         IconButton(
           onPressed: null, icon: Icon(Icons.edit, color: Colors.grey,)),
         IconButton(
