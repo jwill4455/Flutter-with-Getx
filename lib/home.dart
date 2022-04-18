@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:flutterwithgetx/graph.dart';
 import 'package:get/get.dart';
+
+import 'history.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -11,10 +14,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _currentTab = 0;
+  Widget _currentScreen = const GraphScreen();
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: null,
+      body: _currentScreen,
       floatingActionButton: const FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: null,
@@ -24,15 +30,20 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: AnimatedBottomNavigationBar(
         height: Get.height/12,
         activeColor: Colors.white,
-        inactiveColor: Colors.red,
+        inactiveColor: Colors.grey,
         backgroundColor: Colors.black,
         icons: const [Icons.show_chart, Icons.history],
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.verySmoothEdge,
+        iconSize: 30,
         leftCornerRadius: 32,
         rightCornerRadius: 32,
-        activeIndex: 0,
-        onTap: (int a){},
+        activeIndex: _currentTab, onTap: (int a){
+             setState(() {
+               _currentTab = a;
+               _currentScreen = (a == 0)?const GraphScreen():const HistoryScreen();
+             });
+        },
       ),
     );
   }
