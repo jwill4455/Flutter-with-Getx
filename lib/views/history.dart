@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterwithgetx/models/record.dart';
 import 'package:flutterwithgetx/viewmodels/controller.dart';
 import 'package:get/get.dart';
+
+import '../widgets/record_list_tile.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -14,19 +17,28 @@ class _GraphScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    List<Record> records = _controller.records;
+
+    return Obx(
+      () => Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text("History"),
-        ),
-        body: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Text(_controller.records[0].note!),
-            Text(_controller.records[1].note!),
-            Text(_controller.records[2].note!),
-            Text(_controller.records[3].note!),
+          actions: [
+            IconButton(
+              onPressed: _controller.addRecord,
+              icon: const Icon(Icons.add),
+            )
           ],
-        ));
+        ),
+        body: records.isEmpty
+            ? const Center(child: Text('Please Add Some Records'))
+            : ListView(
+                physics: const BouncingScrollPhysics(),
+                children: records
+                    .map((record) => RecordListTile(record: record))
+                    .toList()),
+      ),
+    );
   }
 }
