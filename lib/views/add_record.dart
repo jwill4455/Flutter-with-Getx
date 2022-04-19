@@ -14,6 +14,30 @@ class _AddRecordViewState extends State<AddRecordView> {
   int _selectedValue = 70;
   DateTime _selectedDate = DateTime.now();
 
+  void pickDate(BuildContext context) async {
+    var _initialDate = DateTime.now();
+
+    _selectedDate = await showDatePicker(
+            context: context,
+            initialDate: _initialDate,
+            firstDate: _initialDate.subtract(const Duration(days: 365)),
+            lastDate: _initialDate.add(const Duration(days: 30)),
+    builder: (context, child){
+
+              return Theme(data: ThemeData.light().copyWith(
+
+                 colorScheme: const ColorScheme.light(
+                     primary: Colors.black,
+                     error: Colors.red,
+                 )
+              ),
+                  child: child ?? const Text(''));
+    }) ??
+        _selectedDate;
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,16 +88,8 @@ class _AddRecordViewState extends State<AddRecordView> {
                 ),
               )),
           GestureDetector(
-            onTap: () async {
-              var _initialDate = DateTime.now();
-
-             _selectedDate = await showDatePicker(
-                  context: context,
-                  initialDate: _initialDate,
-                  firstDate: _initialDate.subtract(const Duration(days: 365)),
-                  lastDate: _initialDate.add(const Duration(days: 30))) ?? _selectedDate;
-
-                  setState(() {});
+            onTap: () {
+              pickDate(context);
             },
             child: Card(
                 shape: RoundedRectangleBorder(
