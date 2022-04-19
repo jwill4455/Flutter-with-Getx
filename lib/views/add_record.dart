@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class AddRecordView extends StatefulWidget {
@@ -11,6 +12,7 @@ class AddRecordView extends StatefulWidget {
 
 class _AddRecordViewState extends State<AddRecordView> {
   int _selectedValue = 70;
+  DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +57,45 @@ class _AddRecordViewState extends State<AddRecordView> {
                             border: Border.all(color: Colors.grey),
                           ),
                         ),
-                         const Icon(FontAwesomeIcons.chevronUp, size: 14)
+                        const Icon(FontAwesomeIcons.chevronUp, size: 14)
                       ],
                     )
                   ],
                 ),
               )),
-          Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: const Text('DatePicker Card'),
+          GestureDetector(
+            onTap: () async {
+              var _initialDate = DateTime.now();
+
+             _selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: _initialDate,
+                  firstDate: _initialDate.subtract(const Duration(days: 365)),
+                  lastDate: _initialDate.add(const Duration(days: 30))) ?? _selectedDate;
+
+                  setState(() {});
+            },
+            child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(
+                        FontAwesomeIcons.calendar,
+                        size: 40,
+                      ),
+                      Expanded(
+                        child: Text(
+                          DateFormat('EEE, MMM d').format(_selectedDate),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
           ),
           Card(
             shape:
