@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 class AddRecordView extends StatefulWidget {
   const AddRecordView({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class AddRecordView extends StatefulWidget {
 }
 
 class _AddRecordViewState extends State<AddRecordView> {
+  int _selectedValue = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +22,27 @@ class _AddRecordViewState extends State<AddRecordView> {
       body: Column(
         children: [
           Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: const Text('Weight Card'),
-          ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              child: Row(
+                children: [
+                  const Icon(
+                    FontAwesomeIcons.weightScale,
+                    size: 40,
+                  ),
+                  NumberPicker(
+                    axis: Axis.horizontal,
+                    minValue: 40,
+                    maxValue: 130,
+                    value: _selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedValue = value;
+                      });
+                    },
+                  )
+                ],
+              )),
           Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
